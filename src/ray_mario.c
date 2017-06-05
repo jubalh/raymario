@@ -36,6 +36,7 @@ int screenWidth;
 int screenHeight;
 int framesCounter;
 bool quitGame;
+bool cheatAllowed;
 
 // Game variables
 GameScreen currentScreen;
@@ -184,6 +185,12 @@ int main()
     
     // Window initialiation
     quitGame = false;
+
+#ifdef Debug
+    cheatAllowed = true;
+#else
+    cheatAllowed = false;
+#endif
     
     // Game initialization
     currentScreen = TITLE;
@@ -750,18 +757,26 @@ void GameplayUpdate()
     // Check player - map bounds collision
     if (player.position.y - player.scale.y > screenHeight - 125)
     {
-        if (!isDead)
+        if (cheatAllowed)
         {
-            isDead = true;
-            SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){-5, jumpSpeed * 1.25f});
-            SetColliderEnabled(MAX_BULLETS + 1, false);
-            
-            StopMusicStream(marioSong);
-            playingMusic = false;
-            framesCounter = 0;
-            
-            // Play die sound
-            PlaySound(playerDie);
+            // respawn at the top
+            player.position.y = 0;
+        }
+        else
+        {
+            if (!isDead)
+            {
+                isDead = true;
+                SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){-5, jumpSpeed * 1.25f});
+                SetColliderEnabled(MAX_BULLETS + 1, false);
+                
+                StopMusicStream(marioSong);
+                playingMusic = false;
+                framesCounter = 0;
+                
+                // Play die sound
+                PlaySound(playerDie);
+            }
         }
     }
     
