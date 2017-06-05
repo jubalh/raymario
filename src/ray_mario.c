@@ -865,7 +865,7 @@ void GameplayUpdate()
             }
             
             // Check for jump input
-            if (IsKeyDown('W') && GetRigidbody(MAX_BULLETS + 1).isGrounded)
+            if ((IsKeyDown(KEY_UP) || IsKeyDown('W')) && GetRigidbody(MAX_BULLETS + 1).isGrounded)
             {
                 SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){GetRigidbody(MAX_BULLETS + 1).velocity.x, jumpSpeed});
                 
@@ -874,7 +874,7 @@ void GameplayUpdate()
             }
             
             // Check for movement input
-            if (IsKeyDown('D') && !GetRigidbody(MAX_BULLETS + 1).isContact)
+            if ((IsKeyDown(KEY_RIGHT) || IsKeyDown('D')) && !GetRigidbody(MAX_BULLETS + 1).isContact)
             {
                 facingRight = true;
                 SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){(IsKeyDown(LEFT_CTRL) ? moveSpeed * 2 : moveSpeed), GetRigidbody(MAX_BULLETS + 1).velocity.y});
@@ -884,7 +884,7 @@ void GameplayUpdate()
                     extraOffset.x--;
                 }
             }
-            else if (IsKeyDown('A') && !GetRigidbody(MAX_BULLETS + 1).isContact)
+            else if ((IsKeyDown(KEY_LEFT) || IsKeyDown('A')) && !GetRigidbody(MAX_BULLETS + 1).isContact)
             {
                 facingRight = false;
                 SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){(IsKeyDown(LEFT_CTRL) ? -moveSpeed * 2 : -moveSpeed), GetRigidbody(MAX_BULLETS + 1).velocity.y});
