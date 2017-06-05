@@ -246,7 +246,7 @@ void LoadResources()
     
     for (int i = 0; i < MAX_LEVELS; i++)
     {
-        imageFile = fopen(FormatText("resources/maps/level_map_0%i.bmp", i + 1), "rb");
+        imageFile = fopen(FormatText("resources/maps/level_map_0%i.png", i + 1), "rb");
         
         if (imageFile == NULL) break;
         
@@ -298,7 +298,7 @@ void LoadLevel(int level)
     }
     
     // Map data initialization based on current level
-    Color *pixels = GetImageData(LoadImage(FormatText("resources/maps/level_map_%02i.bmp", level)));
+    Color *pixels = GetImageData(LoadImage(FormatText("resources/maps/level_map_%02i.png", level)));
     
     // Level initialization
     usedFloor = 0;
