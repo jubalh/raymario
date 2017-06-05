@@ -165,8 +165,10 @@ int main()
     
     srand(time(NULL));
     
+#ifndef Debug
     // Show raylib logo
     ShowLogo();
+#endif
     
     InitWindow(screenWidth, screenHeight, "ray MARIO v1.0 [www.victorfisac.com]");
     InitAudioDevice();
@@ -1103,12 +1105,14 @@ void GameplayUpdate()
         }
     }
     
+#ifdef Debug
     // Debug mode switch button
     if (IsKeyPressed('P'))
     {
         physicsSettings.debug = !physicsSettings.debug;
         SetPhysics(physicsSettings);
     }
+#endif
 }
 
 void GameplayDraw()
