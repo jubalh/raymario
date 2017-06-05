@@ -1,9 +1,6 @@
 // Keyboard keys values
 #define LEFT_CTRL 340
 
-// Music path
-#define MUSIC_PATH "resources/music/mario_music.ogg"
-
 // Spritefont values
 #define FONT_SPACING 1
 

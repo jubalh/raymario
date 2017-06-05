@@ -50,7 +50,7 @@ Texture2D environmentAtlas;
 Texture2D castleTex;
     
 // Sounds variables
-Sound select;
+Sound selectSound;
 Sound playerJump;
 Sound playerKick;
 Sound playerFire;
@@ -60,6 +60,7 @@ Sound leftTime;
 Sound gameOver;
 Sound win;
 Sound winGame;
+Music marioSong;
 
 // Menu variables
 int menuSelected;
@@ -228,7 +229,7 @@ void LoadResources()
     castleTex = LoadTexture("resources/images/castle.png");
     
     // Sounds Loading
-    select = LoadSound("resources/sounds/select.wav");
+    selectSound = LoadSound("resources/sounds/select.wav");
     playerJump = LoadSound("resources/sounds/player_jump.wav");
     playerKick = LoadSound("resources/sounds/player_kick.wav");
     playerFire = LoadSound("resources/sounds/player_fire.wav");
@@ -238,6 +239,7 @@ void LoadResources()
     gameOver = LoadSound("resources/sounds/gameover.wav");
     win = LoadSound("resources/sounds/win.wav");
     winGame = LoadSound("resources/sounds/wingame.wav");
+    marioSong = LoadMusicStream("resources/music/mario_music.ogg");
     
     // Maps initialization
     FILE *imageFile;
@@ -449,13 +451,13 @@ void UpdateDraw()
     if(playingMusic)
     {
         // Update stream music buffer
-        UpdateMusicStream();
+        UpdateMusicStream(marioSong);
         
         // Music loop logic
-        if(GetMusicTimePlayed() >= GetMusicTimeLength())
+        if(GetMusicTimePlayed(marioSong) >= GetMusicTimeLength(marioSong))
         {
-            StopMusicStream();
-            PlayMusicStream(MUSIC_PATH);
+            StopMusicStream(marioSong);
+            PlayMusicStream(marioSong);
         }
     }
 
@@ -517,7 +519,7 @@ void TitleUpdate()
             case 0:
             {
                 // Play select sound
-                PlaySound(select);
+                PlaySound(selectSound);
                 
                 framesCounter = 0;
                 currentScreen = LOADING;
@@ -526,7 +528,7 @@ void TitleUpdate()
             } break;
             case 1:
             {
-                StopMusicStream();
+                StopMusicStream(marioSong);
                 framesCounter = 0;
                 
                 quitGame = true;
@@ -622,7 +624,7 @@ void LoadingUpdate()
         
         if (!playingMusic)
         {
-            PlayMusicStream(MUSIC_PATH);
+            PlayMusicStream(marioSong);
             playingMusic = true;
         }
     }
@@ -749,7 +751,7 @@ void GameplayUpdate()
             SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){-5, jumpSpeed * 1.25f});
             SetColliderEnabled(MAX_BULLETS + 1, false);
             
-            StopMusicStream();
+            StopMusicStream(marioSong);
             playingMusic = false;
             framesCounter = 0;
             
@@ -847,7 +849,7 @@ void GameplayUpdate()
                     SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){-4, jumpSpeed});
                     SetColliderEnabled(MAX_BULLETS + 1, false);
                     
-                    StopMusicStream();
+                    StopMusicStream(marioSong);
                     playingMusic = false;
                     framesCounter = 0;
                     
@@ -969,7 +971,7 @@ void GameplayUpdate()
                     else
                     {
                         // Play next level sound
-                        PlaySound(select);
+                        PlaySound(selectSound);
                         
                         // Load new level map
                         LoadLevel(currentLevel);
@@ -1001,7 +1003,7 @@ void GameplayUpdate()
                         SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){GetRigidbody(MAX_BULLETS + MAX_FLOOR + i + 1).velocity.x, jumpSpeed});
                         SetColliderEnabled(MAX_BULLETS + 1, false);
                         
-                        StopMusicStream();
+                        StopMusicStream(marioSong);
                         playingMusic = false;
                         framesCounter = 0;
                         
@@ -1066,7 +1068,7 @@ void GameplayUpdate()
                 facingRight = true;
                 
                 framesCounter = 0;
-                StopMusicStream();
+                StopMusicStream(marioSong);
                 playingMusic = false;
                 
                 // Play stage win sound
@@ -1307,7 +1309,7 @@ void UnloadResources()
     UnloadTexture(castleTex);
     
     // Unload sounds
-    UnloadSound(select);
+    UnloadSound(selectSound);
     UnloadSound(playerJump);
     UnloadSound(playerKick);
     UnloadSound(playerFire);
@@ -1319,6 +1321,7 @@ void UnloadResources()
     UnloadSound(winGame);
     
     // Stop music streaming
-    StopMusicStream();
+    StopMusicStream(marioSong);
     playingMusic = false;
 }
+
