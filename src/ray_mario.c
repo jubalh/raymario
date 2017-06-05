@@ -1,13 +1,16 @@
 /*******************************************************************************************
 *
-*   raylib game - ray MARIO
+*   raylib game - raymario
 *
-*   This game has been created using raylib 1.3 (www.raylib.com)
+*   This game has been created using raylib 1.7 (www.raylib.com)
 *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+*   raylib Copyright (c) 2015 Ramon Santamaria (@raysan5)
 *
+*   raymario was started by
 *   Victor Fisac (www.victorfisac.com)
 *
-*   Copyright (c) 2015 Ramon Santamaria (@raysan5)
+*   Copyright (c) 2015 Victor Fisac (www.victorfisac.com)
+*   Copyright (c) 2017 Michael Vetter (jubalh@openmailbox.org)
 *
 ********************************************************************************************/
 
@@ -170,7 +173,7 @@ int main()
     ShowLogo();
 #endif
     
-    InitWindow(screenWidth, screenHeight, "ray MARIO v1.0 [www.victorfisac.com]");
+    InitWindow(screenWidth, screenHeight, "raymario v1.0");
     InitAudioDevice();
     
     // Load all resources
