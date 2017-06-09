@@ -1,0 +1,1 @@
+void LoadLevel(int level);

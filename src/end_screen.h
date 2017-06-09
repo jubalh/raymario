@@ -1,0 +1,2 @@
+void EndUpdate();
+void EndDraw();

@@ -10,7 +10,14 @@ m_dep = cc.find_library('m', required : false)
 raylib_dep = cc.find_library('raylib', required : false)
 
 source_c = [
-  'src/ray_mario.c'
+  'src/ray_mario.c',
+  'src/level.c',
+  'src/title_screen.c',
+  'src/loading_screen.c',
+  'src/gameplay_screen.c',
+  'src/win_screen.c',
+  'src/end_screen.c',
+  'src/libraries/physac.c'
 ]
 
 raymario = executable('raymario',

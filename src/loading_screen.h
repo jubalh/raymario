@@ -1,0 +1,2 @@
+void LoadingUpdate();
+void LoadingDraw();

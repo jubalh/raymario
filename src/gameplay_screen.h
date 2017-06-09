@@ -1,0 +1,2 @@
+void GameplayUpdate();
+void GameplayDraw();

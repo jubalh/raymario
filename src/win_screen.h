@@ -1,0 +1,2 @@
+void WinUpdate();
+void WinDraw();
