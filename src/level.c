@@ -4,6 +4,16 @@
 #include "libraries/defines.c"
 #include "libraries/physac.h"
 
+// Levels are saved as image files (png)
+// RGB       - Color  - Representation
+// 255,255,0 - Yellow - Floor
+// 255,0,0   - Red    - Enemy
+// 0,255,0   - Lime   - Coin
+// 0,255,255 - Aqua   - Decoration
+// 0,0,0     - Black  - Clouds
+// 128,0,0   - Maroon - Castle
+// 0,128,0   - Green  - Flag
+
 void LoadLevel(int level)
 {
     // Parallax initialization

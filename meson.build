@@ -10,7 +10,7 @@ m_dep = cc.find_library('m', required : false)
 raylib_dep = cc.find_library('raylib', required : false)
 
 source_c = [
-  'src/ray_mario.c',
+  'src/main.c',
   'src/level.c',
   'src/title_screen.c',
   'src/loading_screen.c',
