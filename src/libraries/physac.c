@@ -22,6 +22,7 @@
 **********************************************************************************************/
 
 #include "raylib.h"
+#include "physac.h"
 
 #include <math.h>
 #include <stdio.h>
@@ -29,77 +30,22 @@
 //----------------------------------------------------------------------------------
 // Defines and Macros
 //----------------------------------------------------------------------------------
-#define MAX_ELEMENTS 1024
 #define DECIMAL_FIX 0.01f
-
-//----------------------------------------------------------------------------------
-// Types and Structures Definition
-//----------------------------------------------------------------------------------
-typedef enum { RectangleCollider, CircleCollider } ColliderType;
-
-typedef struct Physics {
-    bool enabled;
-    bool debug;
-    Vector2 gravity;
-} Physics;
-
-typedef struct Transform {
-    Vector2 position;
-    float rotation;
-    Vector2 scale;
-} Transform;
-    
-typedef struct Collider {
-    bool enabled;
-    ColliderType type;
-    Rectangle bounds;
-    int radius;
-} Collider;
-
-typedef struct Rigidbody {
-    bool enabled;
-    float mass;
-    Vector2 acceleration;
-    Vector2 velocity;
-    bool isGrounded;
-    bool isContact;
-    bool applyGravity;
-    float friction;
-    float bounciness;
-} Rigidbody;
 
 //----------------------------------------------------------------------------------
 // Global Variables Definition
 //----------------------------------------------------------------------------------
 static Physics physics;
-static Collider colliders[MAX_ELEMENTS];
-static Rigidbody rigidbodies[MAX_ELEMENTS];
+static Collider colliders[PHYSAC_MAX_ELEMENTS];
+static Rigidbody rigidbodies[PHYSAC_MAX_ELEMENTS];
 static bool collisionChecker = false;
 
-//----------------------------------------------------------------------------------
-// Module Functions Declaration
-//----------------------------------------------------------------------------------
-void InitPhysics();
-void SetPhysics(Physics settings);
-void SetGravity(Vector2 force);
-
-void AddRigidbody(int index, Rigidbody rigidbody);
-void AddCollider(int index, Collider collider);
-void SetColliderEnabled(int index, bool state);
-
-void ApplyPhysics(int index, Vector2 *position);
-void SetRigidbodyEnabled(int index, bool state);
-void SetRigidbodyVelocity(int index, Vector2 velocity);
-void AddRigidbodyForce(int index, Vector2 force);
-
-Collider GetCollider(int index);
-Rigidbody GetRigidbody(int index);
 //----------------------------------------------------------------------------------
 // Module Functions Definition
 //----------------------------------------------------------------------------------
 void InitPhysics()
 {    
-    for (int i = 0; i < MAX_ELEMENTS; i++)
+    for (int i = 0; i < PHYSAC_MAX_ELEMENTS; i++)
     {
         rigidbodies[i].enabled = false;
         rigidbodies[i].mass = 0.0f;
@@ -217,7 +163,7 @@ void ApplyPhysics(int index, Vector2 *position)
         // Check collision with other colliders
         collisionChecker = false;
         rigidbodies[index].isContact = false;
-        for (int j = 0; j < MAX_ELEMENTS; j++)
+        for (int j = 0; j < PHYSAC_MAX_ELEMENTS; j++)
         {
             if (index != j)
             {
