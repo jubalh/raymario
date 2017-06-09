@@ -22,13 +22,11 @@
 // Include videogame libraries
 #include "raylib.h"
 
-#ifndef PLATFORM_WEB
-    #include "libraries/defines.c"
-    #include "libraries/physac.h"
-#else
-    #include <emscripten/emscripten.h>
-#endif
+// 3rd party
+#include "libraries/defines.c"
+#include "libraries/physac.h"
 
+// Game
 #include "globals.h"
 #include "title_screen.h"
 #include "loading_screen.h"
@@ -87,9 +85,6 @@ int main()
     
     // Update
     //--------------------------------------------------------------------------------------
-#if defined(PLATFORM_WEB)
-    emscripten_set_main_loop(UpdateDraw, 0, 1);
-#else
     SetTargetFPS(60);   // Set our game to run at 60 frames-per-second
     
     // Main game loop
@@ -97,7 +92,6 @@ int main()
     {
         UpdateDraw();
     }
-#endif
 
     // De-Initialization
     //-------------------------------------------------------------------------------------- 

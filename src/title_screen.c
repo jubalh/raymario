@@ -21,7 +21,6 @@
 
 void TitleUpdate()
 {
-#ifndef PLATFORM_WEB
     if (IsKeyPressed(KEY_DOWN) || IsKeyPressed('S'))
     {
         menuSelected = (menuSelected == 0) ? 1 : 0;
@@ -36,7 +35,6 @@ void TitleUpdate()
         // Play navigation sound
         PlaySound(playerFire);
     }
-#endif
 
     if (IsKeyPressed(KEY_SPACE))
     {
@@ -73,9 +71,7 @@ void TitleDraw()
         
         DrawTextEx(font, ((menuSelected == 0) ? "- Play -" : "Play"), (Vector2){screenWidth / 2 - MeasureTextEx(font, ((menuSelected == 0) ? "- Play -" : "Play"), 40, FONT_SPACING).x / 2, screenHeight * 0.4f}, 40, FONT_SPACING, (menuSelected == 0) ? RED : WHITE);
         
-    #ifndef PLATFORM_WEB
         DrawTextEx(font, ((menuSelected == 1) ? "- Quit -" : "Quit"), (Vector2){screenWidth / 2 - MeasureTextEx(font, ((menuSelected == 1) ? "- Quit -" : "Quit"), 40, FONT_SPACING).x / 2, screenHeight * 0.5f}, 40, FONT_SPACING, (menuSelected == 1) ? RED : WHITE);
-    #endif
     
         // Draw auxiliar floor
         for (int i = 0; i < 80; i++)
