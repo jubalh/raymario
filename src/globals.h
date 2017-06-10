@@ -4,6 +4,20 @@
 // Structs definitions
 typedef enum GameScreen { TITLE, LOADING, GAMEPLAY, END, WIN} GameScreen;
 
+typedef enum Sounds {
+	S_SELECT = 0,
+	S_JUMP,
+	S_KICK,
+	S_FIRE,
+	S_DIE,
+	S_COIN,
+	S_TIMELEFT,
+	S_GAMEOVER,
+	S_COMPLETE_LEVEL, // win
+	S_WON,
+	S_LAST
+} Sounds;
+
 typedef struct Player
 {
 	Transform transform;
@@ -30,6 +44,7 @@ typedef struct Game
 	int levelsCount;
 } Game;
 
+// Variables
 Player player;
 Game game;
 
@@ -37,16 +52,7 @@ int screenWidth;
 int screenHeight;
 
 // Sounds variables
-Sound selectSound;
-Sound playerJump;
-Sound playerKick;
-Sound playerFire;
-Sound playerDie;
-Sound coin;
-Sound leftTime;
-Sound gameOver;
-Sound win;
-Sound winGame;
+Sound sounds[S_LAST];
 Music marioSong;
 
 // SpriteFonts variables

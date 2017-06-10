@@ -112,16 +112,16 @@ void LoadResources()
     castleTex = LoadTexture("resources/images/castle.png");
     
     // Sounds Loading
-    selectSound = LoadSound("resources/sounds/select.wav");
-    playerJump = LoadSound("resources/sounds/player_jump.wav");
-    playerKick = LoadSound("resources/sounds/player_kick.wav");
-    playerFire = LoadSound("resources/sounds/player_fire.wav");
-    playerDie = LoadSound("resources/sounds/player_die.wav");
-    coin = LoadSound("resources/sounds/coin.wav");
-    leftTime = LoadSound("resources/sounds/left_time.wav");
-    gameOver = LoadSound("resources/sounds/gameover.wav");
-    win = LoadSound("resources/sounds/win.wav");
-    winGame = LoadSound("resources/sounds/wingame.wav");
+    sounds[S_SELECT] = LoadSound("resources/sounds/select.wav");
+    sounds[S_JUMP] = LoadSound("resources/sounds/player_jump.wav");
+    sounds[S_KICK] = LoadSound("resources/sounds/player_kick.wav");
+    sounds[S_FIRE] = LoadSound("resources/sounds/player_fire.wav");
+    sounds[S_DIE] = LoadSound("resources/sounds/player_die.wav");
+    sounds[S_COIN] = LoadSound("resources/sounds/coin.wav");
+    sounds[S_TIMELEFT] = LoadSound("resources/sounds/left_time.wav");
+    sounds[S_GAMEOVER] = LoadSound("resources/sounds/gameover.wav");
+    sounds[S_COMPLETE_LEVEL] = LoadSound("resources/sounds/win.wav");
+    sounds[S_WON] = LoadSound("resources/sounds/wingame.wav");
     marioSong = LoadMusicStream("resources/music/mario_music.ogg");
     
     // Maps initialization
@@ -209,16 +209,16 @@ void UnloadResources()
     UnloadTexture(castleTex);
     
     // Unload sounds
-    UnloadSound(selectSound);
-    UnloadSound(playerJump);
-    UnloadSound(playerKick);
-    UnloadSound(playerFire);
-    UnloadSound(playerDie);
-    UnloadSound(coin);
-    UnloadSound(leftTime);
-    UnloadSound(gameOver);
-    UnloadSound(win);
-    UnloadSound(winGame);
+    UnloadSound(sounds[S_SELECT]);
+    UnloadSound(sounds[S_JUMP]);
+    UnloadSound(sounds[S_KICK]);
+    UnloadSound(sounds[S_FIRE]);
+    UnloadSound(sounds[S_DIE]);
+    UnloadSound(sounds[S_COIN]);
+    UnloadSound(sounds[S_TIMELEFT]);
+    UnloadSound(sounds[S_GAMEOVER]);
+    UnloadSound(sounds[S_COMPLETE_LEVEL]);
+    UnloadSound(sounds[S_WON]);
     
     // Stop music streaming
     StopMusicStream(marioSong);

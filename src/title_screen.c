@@ -28,14 +28,14 @@ void TitleUpdate()
         menuSelected = (menuSelected == 0) ? 1 : 0;
         
         // Play navigation sound
-        PlaySound(playerFire);
+        PlaySound(sounds[S_FIRE]);
     }
     else if (IsKeyPressed(KEY_UP) || IsKeyPressed('W'))
     {
         menuSelected = (menuSelected == 1) ? 0 : 1;
         
         // Play navigation sound
-        PlaySound(playerFire);
+        PlaySound(sounds[S_FIRE]);
     }
 
     if (IsKeyPressed(KEY_SPACE))
@@ -45,7 +45,7 @@ void TitleUpdate()
             case 0:
             {
                 // Play select sound
-                PlaySound(selectSound);
+                PlaySound(sounds[S_SELECT]);
                 
                 game.framesCounter = 0;
                 game.currentScreen = LOADING;

@@ -124,7 +124,7 @@ void GameplayUpdate()
                 game.framesCounter = 0;
                 
                 // Play die sound
-                PlaySound(playerDie);
+                PlaySound(sounds[S_DIE]);
             }
         }
     }
@@ -209,7 +209,7 @@ void GameplayUpdate()
                 if (player.timeLeft == 10)
                 {
                     // Play time left warning sound
-                    PlaySound(leftTime);
+                    PlaySound(sounds[S_TIMELEFT]);
                 }
                 
                 if (player.timeLeft <= 0)
@@ -223,7 +223,7 @@ void GameplayUpdate()
                     game.framesCounter = 0;
                     
                     // Play die sound
-                    PlaySound(playerDie);
+                    PlaySound(sounds[S_DIE]);
                 }
             }
             
@@ -239,7 +239,7 @@ void GameplayUpdate()
                 SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){GetRigidbody(MAX_BULLETS + 1).velocity.x, player.jumpSpeed});
                 
                 // Play jump sound
-                PlaySound(playerJump);
+                PlaySound(sounds[S_JUMP]);
             }
             
             // Check for movement input
@@ -277,7 +277,7 @@ void GameplayUpdate()
                         SetRigidbodyVelocity(i, (Vector2){(player.facingRight) ? 10 : -10, 0});
                         
                         // Play fire sound
-                        PlaySound(playerFire);
+                        PlaySound(sounds[S_FIRE]);
                         break;
                     }
                 }
@@ -333,14 +333,14 @@ void GameplayUpdate()
                     if (game.currentLevel > game.levelsCount)
                     {
                         // Play win game sound
-                        PlaySound(winGame);
+                        PlaySound(sounds[S_WON]);
                         
                         game.currentScreen = WIN;
                     }
                     else
                     {
                         // Play next level sound
-                        PlaySound(selectSound);
+                        PlaySound(sounds[S_SELECT]);
                         
                         // Load new level map
                         LoadLevel(game.currentLevel);
@@ -364,7 +364,7 @@ void GameplayUpdate()
                         SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){GetRigidbody(MAX_BULLETS + 1).velocity.x, player.jumpSpeed / 2});
                         
                         // Play kick sound
-                        PlaySound(playerKick);
+                        PlaySound(sounds[S_KICK]);
                     }
                     else
                     {
@@ -377,7 +377,7 @@ void GameplayUpdate()
                         game.framesCounter = 0;
                         
                         // Play die sound
-                        PlaySound(playerDie);
+                        PlaySound(sounds[S_DIE]);
                     }
                 }
             }
@@ -405,7 +405,7 @@ void GameplayUpdate()
                             SetRigidbodyEnabled(i, false);
                             
                             // Play kick sound
-                            PlaySound(playerKick);
+                            PlaySound(sounds[S_KICK]);
                         }
                     }
                 }
@@ -423,7 +423,7 @@ void GameplayUpdate()
                     coinCollected[i] = true;
                     
                     // Play collect coin sound
-                    PlaySound(coin);
+                    PlaySound(sounds[S_COIN]);
                 }
             }
         }
@@ -441,7 +441,7 @@ void GameplayUpdate()
                 game.playingMusic = false;
                 
                 // Play stage win sound
-                PlaySound(win);
+                PlaySound(sounds[S_COMPLETE_LEVEL]);
             }
         }
     }
@@ -457,7 +457,7 @@ void GameplayUpdate()
                 game.framesCounter = 0;
                 
                 // Play game over sound
-                PlaySound(gameOver);
+                PlaySound(sounds[S_GAMEOVER]);
                 
                 game.currentScreen = END;
             }
