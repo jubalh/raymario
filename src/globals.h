@@ -2,7 +2,13 @@
 #include "libraries/defines.c"
 
 // Structs definitions
-typedef enum GameScreen { TITLE, LOADING, GAMEPLAY, END, WIN} GameScreen;
+typedef enum GameScreen {
+	TITLE = 0, 
+	LOADING, 
+	GAMEPLAY, 
+	END, 
+	WIN
+} GameScreen;
 
 typedef enum Sounds {
 	S_SELECT = 0,
@@ -13,7 +19,7 @@ typedef enum Sounds {
 	S_COIN,
 	S_TIMELEFT,
 	S_GAMEOVER,
-	S_COMPLETE_LEVEL, // win
+	S_COMPLETE_LEVEL,
 	S_WON,
 	S_LAST
 } Sounds;
