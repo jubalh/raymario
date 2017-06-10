@@ -120,7 +120,7 @@ void GameplayUpdate()
                 SetColliderEnabled(MAX_BULLETS + 1, false);
                 
                 StopMusicStream(marioSong);
-                playingMusic = false;
+                game.playingMusic = false;
                 game.framesCounter = 0;
                 
                 // Play die sound
@@ -219,7 +219,7 @@ void GameplayUpdate()
                     SetColliderEnabled(MAX_BULLETS + 1, false);
                     
                     StopMusicStream(marioSong);
-                    playingMusic = false;
+                    game.playingMusic = false;
                     game.framesCounter = 0;
                     
                     // Play die sound
@@ -326,16 +326,16 @@ void GameplayUpdate()
                 if (game.framesCounter > 240 * 1.5f)
                 {
                     // Change screen
-                    currentScreen = LOADING;
+                    game.currentScreen = LOADING;
                     game.framesCounter = 0;
                     
-                    currentLevel++;
-                    if (currentLevel > mapsCount)
+                    game.currentLevel++;
+                    if (game.currentLevel > game.levelsCount)
                     {
                         // Play win game sound
                         PlaySound(winGame);
                         
-                        currentScreen = WIN;
+                        game.currentScreen = WIN;
                     }
                     else
                     {
@@ -343,7 +343,7 @@ void GameplayUpdate()
                         PlaySound(selectSound);
                         
                         // Load new level map
-                        LoadLevel(currentLevel);
+                        LoadLevel(game.currentLevel);
                     }
                 }
             }
@@ -373,7 +373,7 @@ void GameplayUpdate()
                         SetColliderEnabled(MAX_BULLETS + 1, false);
                         
                         StopMusicStream(marioSong);
-                        playingMusic = false;
+                        game.playingMusic = false;
                         game.framesCounter = 0;
                         
                         // Play die sound
@@ -438,7 +438,7 @@ void GameplayUpdate()
                 
                 game.framesCounter = 0;
                 StopMusicStream(marioSong);
-                playingMusic = false;
+                game.playingMusic = false;
                 
                 // Play stage win sound
                 PlaySound(win);
@@ -459,15 +459,15 @@ void GameplayUpdate()
                 // Play game over sound
                 PlaySound(gameOver);
                 
-                currentScreen = END;
+                game.currentScreen = END;
             }
             else
             {
                 game.framesCounter = 0;
                 
-                currentScreen = LOADING;
+                game.currentScreen = LOADING;
                 
-                LoadLevel(currentLevel);
+                LoadLevel(game.currentLevel);
             }
         }
     }
@@ -593,7 +593,7 @@ void GameplayDraw()
         DrawTextEx(font, FormatText("Coins: %i / %i", player.collectedCoins, usedCoins), (Vector2){10, 10}, 20, FONT_SPACING, (player.collectedCoins == usedCoins) ? YELLOW : WHITE);
         DrawTextEx(font, FormatText("       Mario x %i", player.lifes), (Vector2){150, 10}, 20, FONT_SPACING, WHITE);
         DrawTextEx(font, FormatText("Time: %03i", player.timeLeft), (Vector2){screenWidth - MeasureTextEx(font, FormatText("Time: %03i", player.timeLeft), 20, FONT_SPACING).x * 0.5f, 10}, 20, FONT_SPACING, WHITE);
-        DrawTextEx(font, FormatText("World: %i", currentLevel), (Vector2){screenWidth / 2, 10}, 20, FONT_SPACING, WHITE);
+        DrawTextEx(font, FormatText("World: %i", game.currentLevel), (Vector2){screenWidth / 2, 10}, 20, FONT_SPACING, WHITE);
 
     EndDrawing();
 }

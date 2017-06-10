@@ -21,9 +21,13 @@ typedef struct Player
 
 typedef struct Game
 {
-	int framesCounter;
+	GameScreen currentScreen;
 	bool quitGame;
 	bool cheatAllowed;
+	bool playingMusic;
+	int framesCounter;
+	int currentLevel;;
+	int levelsCount;
 } Game;
 
 Player player;
@@ -44,12 +48,6 @@ Sound gameOver;
 Sound win;
 Sound winGame;
 Music marioSong;
-
-// Game variables
-GameScreen currentScreen;
-int currentLevel;
-bool playingMusic;
-int mapsCount;
 
 // SpriteFonts variables
 SpriteFont font;

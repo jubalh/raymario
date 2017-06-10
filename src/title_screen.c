@@ -48,9 +48,9 @@ void TitleUpdate()
                 PlaySound(selectSound);
                 
                 game.framesCounter = 0;
-                currentScreen = LOADING;
+                game.currentScreen = LOADING;
                 
-                LoadLevel(currentLevel);
+                LoadLevel(game.currentLevel);
             } break;
             case 1:
             {

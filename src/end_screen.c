@@ -7,10 +7,10 @@ void EndUpdate()
 	if (game.framesCounter > 240)
 	{
 		game.framesCounter = 0;
-		currentLevel = 1;
+		game.currentLevel = 1;
 		player.lifes = 3;
 		
-		currentScreen = TITLE;
+		game.currentScreen = TITLE;
 	}
 }
 

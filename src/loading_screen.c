@@ -52,13 +52,13 @@ void LoadingUpdate()
     
     if (game.framesCounter > 120)
     {
-        currentScreen = GAMEPLAY;
+        game.currentScreen = GAMEPLAY;
         game.framesCounter = 0;
         
-        if (!playingMusic)
+        if (!game.playingMusic)
         {
             PlayMusicStream(marioSong);
-            playingMusic = true;
+            game.playingMusic = true;
         }
     }
 }
@@ -69,7 +69,7 @@ void LoadingDraw()
     
         ClearBackground(BLACK);
         
-        DrawTextEx(font, FormatText("World: %i / %i", currentLevel, mapsCount), (Vector2){screenWidth / 2 - MeasureTextEx(font, FormatText("World: %i / %i", currentLevel, mapsCount), 50, FONT_SPACING).x / 2, screenHeight / 2 - 25}, 50, FONT_SPACING, WHITE);
+        DrawTextEx(font, FormatText("World: %i / %i", game.currentLevel, game.levelsCount), (Vector2){screenWidth / 2 - MeasureTextEx(font, FormatText("World: %i / %i", game.currentLevel, game.levelsCount), 50, FONT_SPACING).x / 2, screenHeight / 2 - 25}, 50, FONT_SPACING, WHITE);
         
         DrawTextEx(font, loadingMessage, (Vector2){screenWidth - MeasureTextEx(font, "Loading...", 30, FONT_SPACING).x - 20, screenHeight - 30 - 20}, 30, FONT_SPACING, WHITE);
         

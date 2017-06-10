@@ -74,8 +74,8 @@ int main()
 #endif
     
     // Game initialization
-    currentScreen = TITLE;
-    currentLevel = 1;
+    game.currentScreen = TITLE;
+    game.currentLevel = 1;
     
     // Gameplay initialization
     player.lifes = 3;
@@ -133,7 +133,7 @@ void LoadResources()
         
         if (imageFile == NULL) break;
         
-        mapsCount++;
+        game.levelsCount++;
     }
 }
 
@@ -152,7 +152,7 @@ void UpdateDraw()
     game.framesCounter++;
     
     // Music stream logic
-    if(playingMusic)
+    if(game.playingMusic)
     {
         // Update stream music buffer
         UpdateMusicStream(marioSong);
@@ -166,7 +166,7 @@ void UpdateDraw()
     }
 
     // Update based on game screen
-    switch (currentScreen)
+    switch (game.currentScreen)
     {
         case TITLE:
         {
@@ -222,6 +222,6 @@ void UnloadResources()
     
     // Stop music streaming
     StopMusicStream(marioSong);
-    playingMusic = false;
+    game.playingMusic = false;
 }
 
