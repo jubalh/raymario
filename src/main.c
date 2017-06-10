@@ -145,8 +145,9 @@ void LoadPhysics()
     // Physics initialization
     InitPhysics();
     
-    physicsSettings = (Physics){true, false, (Vector2){0, -0.98f}};
-    SetPhysics(physicsSettings);
+    //physicsSettings = (Physics){true, false, (Vector2){0, -0.98f}};
+    //SetPhysics(physicsSettings);
+	SetPhysicsGravity(0, -0.98f);
 }
 
 void UpdateDraw()

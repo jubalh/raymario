@@ -16,8 +16,7 @@ source_c = [
   'src/loading_screen.c',
   'src/gameplay_screen.c',
   'src/win_screen.c',
-  'src/end_screen.c',
-  'src/libraries/physac.c'
+  'src/end_screen.c'
 ]
 
 raymario = executable('raymario',
