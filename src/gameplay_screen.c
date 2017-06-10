@@ -7,7 +7,7 @@
 void GameplayUpdate()
 {
     // Previous frame data storage
-    lastParallax = player.position;
+    lastParallax = player.transform.position;
     
     for (int i = 0; i < MAX_BULLETS; i++)
     {
@@ -21,7 +21,7 @@ void GameplayUpdate()
     }
     
     // Apply physics to player
-    ApplyPhysics(MAX_BULLETS + 1, &player.position);
+    ApplyPhysics(MAX_BULLETS + 1, &player.transform.position);
     
     // Apply physics to enemies
     for (int i = 0; i < MAX_ENEMIES; i++)
@@ -104,19 +104,19 @@ void GameplayUpdate()
     }
     
     // Check player - map bounds collision
-    if (player.position.y - player.scale.y > screenHeight - 125)
+    if (player.transform.position.y - player.transform.scale.y > screenHeight - 125)
     {
         if (cheatAllowed)
         {
             // respawn at the top
-            player.position.y = 0;
+            player.transform.position.y = 0;
         }
         else
         {
-            if (!isDead)
+            if (!player.isDead)
             {
-                isDead = true;
-                SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){-5, jumpSpeed * 1.25f});
+                player.isDead = true;
+                SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){-5, player.jumpSpeed * 1.25f});
                 SetColliderEnabled(MAX_BULLETS + 1, false);
                 
                 StopMusicStream(marioSong);
@@ -134,38 +134,38 @@ void GameplayUpdate()
     {
         if (!GetRigidbody(MAX_BULLETS + 1).isGrounded)
         {
-            playerFrame = facingRight ? 8 : 9;
+            player.frame = player.facingRight ? 8 : 9;
         }
         else
         {
             if (GetRigidbody(MAX_BULLETS + 1).velocity.x != 0)
             {
-                if (facingRight)
+                if (player.facingRight)
                 {
-                    if (playerFrame < 3)
+                    if (player.frame < 3)
                     {
-                        playerFrame++;
+                        player.frame++;
                     }
                     else
                     {
-                        playerFrame = 1;
+                        player.frame = 1;
                     }
                 }
                 else
                 {
-                    if (playerFrame < 7)
+                    if (player.frame < 7)
                     {
-                        playerFrame++;
+                        player.frame++;
                     }
                     else
                     {
-                        playerFrame = 5;
+                        player.frame = 5;
                     }
                 }
             }
             else
             {
-                playerFrame = facingRight ? 0 : 4;
+                player.frame = player.facingRight ? 0 : 4;
             }
         }
     }
@@ -197,25 +197,25 @@ void GameplayUpdate()
         }
     }
     
-    if (!isDead)
+    if (!player.isDead)
     {
-        if (!completed)
+        if (!player.levelCompleted)
         {
             // Time challenge logic
             if ((framesCounter % 60 ) == 0)
             {
-                timeLeft--;
+                player.timeLeft--;
                 
-                if (timeLeft == 10)
+                if (player.timeLeft == 10)
                 {
                     // Play time left warning sound
                     PlaySound(leftTime);
                 }
                 
-                if (timeLeft <= 0)
+                if (player.timeLeft <= 0)
                 {
-                    isDead = true;
-                    SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){-4, jumpSpeed});
+                    player.isDead = true;
+                    SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){-4, player.jumpSpeed});
                     SetColliderEnabled(MAX_BULLETS + 1, false);
                     
                     StopMusicStream(marioSong);
@@ -228,7 +228,7 @@ void GameplayUpdate()
             }
             
             // Check for objectives
-            if (collectedCoins == usedCoins)
+            if (player.collectedCoins == usedCoins)
             {
                 SetColliderEnabled(MAX_BULLETS + 1 + MAX_FLOOR + MAX_ENEMIES, false);
             }
@@ -236,7 +236,7 @@ void GameplayUpdate()
             // Check for jump input
             if ((IsKeyDown(KEY_UP) || IsKeyDown('W')) && GetRigidbody(MAX_BULLETS + 1).isGrounded)
             {
-                SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){GetRigidbody(MAX_BULLETS + 1).velocity.x, jumpSpeed});
+                SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){GetRigidbody(MAX_BULLETS + 1).velocity.x, player.jumpSpeed});
                 
                 // Play jump sound
                 PlaySound(playerJump);
@@ -245,8 +245,8 @@ void GameplayUpdate()
             // Check for movement input
             if ((IsKeyDown(KEY_RIGHT) || IsKeyDown('D')) && !GetRigidbody(MAX_BULLETS + 1).isContact)
             {
-                facingRight = true;
-                SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){(IsKeyDown(LEFT_CTRL) ? moveSpeed * 2 : moveSpeed), GetRigidbody(MAX_BULLETS + 1).velocity.y});
+                player.facingRight = true;
+                SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){(IsKeyDown(LEFT_CTRL) ? player.moveSpeed * 2 : player.moveSpeed), GetRigidbody(MAX_BULLETS + 1).velocity.y});
                 
                 if (extraOffset.x > -MAX_OFFSET)
                 {
@@ -255,8 +255,8 @@ void GameplayUpdate()
             }
             else if ((IsKeyDown(KEY_LEFT) || IsKeyDown('A')) && !GetRigidbody(MAX_BULLETS + 1).isContact)
             {
-                facingRight = false;
-                SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){(IsKeyDown(LEFT_CTRL) ? -moveSpeed * 2 : -moveSpeed), GetRigidbody(MAX_BULLETS + 1).velocity.y});
+                player.facingRight = false;
+                SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){(IsKeyDown(LEFT_CTRL) ? - player.moveSpeed * 2 : -player.moveSpeed), GetRigidbody(MAX_BULLETS + 1).velocity.y});
                 
                 if (extraOffset.x < MAX_OFFSET)
                 {
@@ -271,10 +271,10 @@ void GameplayUpdate()
                 {
                     if (!GetRigidbody(i).enabled)
                     {
-                        bullets[i].position.x = player.position.x + ((facingRight) ? player.scale.x + 10 : -10);
-                        bullets[i].position.y = player.position.y + player.scale.y / 2;
+                        bullets[i].position.x = player.transform.position.x + ((player.facingRight) ? player.transform.scale.x + 10 : -10);
+                        bullets[i].position.y = player.transform.position.y + player.transform.scale.y / 2;
                         SetRigidbodyEnabled(i, true);
-                        SetRigidbodyVelocity(i, (Vector2){(facingRight) ? 10 : -10, 0});
+                        SetRigidbodyVelocity(i, (Vector2){(player.facingRight) ? 10 : -10, 0});
                         
                         // Play fire sound
                         PlaySound(playerFire);
@@ -284,7 +284,7 @@ void GameplayUpdate()
             }
             
             // Update parallax logic
-            parallax = player.position;
+            parallax = player.transform.position;
             
             cameraOffset.x -= parallax.x - lastParallax.x;
             // cameraOffset.y -= parallax.y - lastParallax.y;
@@ -319,7 +319,7 @@ void GameplayUpdate()
             if (flagTargetPos > 0)
             {
                 flagTargetPos -= 3;
-                SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){moveSpeed * 1.07f, GetRigidbody(MAX_BULLETS + 1).velocity.y});
+                SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){player.moveSpeed * 1.07f, GetRigidbody(MAX_BULLETS + 1).velocity.y});
             }
             else
             {
@@ -361,15 +361,15 @@ void GameplayUpdate()
                         SetRigidbodyVelocity(MAX_BULLETS + MAX_FLOOR + i + 1, (Vector2){GetRigidbody(i).velocity.x / 2, 10});
                         SetColliderEnabled(MAX_BULLETS + MAX_FLOOR + i + 1, false);
                         
-                        SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){GetRigidbody(MAX_BULLETS + 1).velocity.x, jumpSpeed / 2});
+                        SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){GetRigidbody(MAX_BULLETS + 1).velocity.x, player.jumpSpeed / 2});
                         
                         // Play kick sound
                         PlaySound(playerKick);
                     }
                     else
                     {
-                        isDead = true;
-                        SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){GetRigidbody(MAX_BULLETS + MAX_FLOOR + i + 1).velocity.x, jumpSpeed});
+                        player.isDead = true;
+                        SetRigidbodyVelocity(MAX_BULLETS + 1, (Vector2){GetRigidbody(MAX_BULLETS + MAX_FLOOR + i + 1).velocity.x, player.jumpSpeed});
                         SetColliderEnabled(MAX_BULLETS + 1, false);
                         
                         StopMusicStream(marioSong);
@@ -419,7 +419,7 @@ void GameplayUpdate()
             {
                 if (CheckCollisionRecs(GetCollider(MAX_BULLETS + 1).bounds, (Rectangle){coins[i].position.x, coins[i].position.y, coins[i].scale.x, coins[i].scale.y}))
                 {
-                    collectedCoins++;
+                    player.collectedCoins++;
                     coinCollected[i] = true;
                     
                     // Play collect coin sound
@@ -431,10 +431,10 @@ void GameplayUpdate()
         // Check player - trigger collision
         if (CheckCollisionRecs(GetCollider(MAX_BULLETS + 1).bounds, (Rectangle){flag.position.x, flag.position.y - 300, flag.scale.x, flag.scale.y}))
         {
-            if (!completed && collectedCoins == usedCoins)
+            if (!player.levelCompleted && player.collectedCoins == usedCoins)
             {
-                completed = true;
-                facingRight = true;
+                player.levelCompleted = true;
+                player.facingRight = true;
                 
                 framesCounter = 0;
                 StopMusicStream(marioSong);
@@ -449,11 +449,11 @@ void GameplayUpdate()
     {
         if (framesCounter > 240)
         {
-            lifes--;
+            player.lifes--;
             
-            if (lifes <= 0)
+            if (player.lifes <= 0)
             {
-                lifes = 0;
+                player.lifes = 0;
                 framesCounter = 0;
                 
                 // Play game over sound
@@ -562,7 +562,7 @@ void GameplayDraw()
             }
             
             // Draw player
-            if (flagTargetPos > 0) DrawTexturePro(marioAtlas, (Rectangle){MARIO_WIDTH * playerFrame, 0, MARIO_WIDTH, MARIO_HEIGHT}, (Rectangle){extraOffset.x + cameraOffset.x + player.position.x, extraOffset.y + cameraOffset.y + player.position.y, player.scale.x, player.scale.y}, (Vector2){0.5f, 0.5f}, 0.0f, WHITE);
+            if (flagTargetPos > 0) DrawTexturePro(marioAtlas, (Rectangle){MARIO_WIDTH * player.frame, 0, MARIO_WIDTH, MARIO_HEIGHT}, (Rectangle){extraOffset.x + cameraOffset.x + player.transform.position.x, extraOffset.y + cameraOffset.y + player.transform.position.y, player.transform.scale.x, player.transform.scale.y}, (Vector2){0.5f, 0.5f}, 0.0f, WHITE);
             
             // Draw enemies
             for (int i = 0; i < MAX_ENEMIES; i++)
@@ -590,9 +590,9 @@ void GameplayDraw()
         }
         
         // Draw gameplay UI
-        DrawTextEx(font, FormatText("Coins: %i / %i", collectedCoins, usedCoins), (Vector2){10, 10}, 20, FONT_SPACING, (collectedCoins == usedCoins) ? YELLOW : WHITE);
-        DrawTextEx(font, FormatText("       Mario x %i", lifes), (Vector2){150, 10}, 20, FONT_SPACING, WHITE);
-        DrawTextEx(font, FormatText("Time: %03i", timeLeft), (Vector2){screenWidth - MeasureTextEx(font, FormatText("Time: %03i", timeLeft), 20, FONT_SPACING).x * 0.5f, 10}, 20, FONT_SPACING, WHITE);
+        DrawTextEx(font, FormatText("Coins: %i / %i", player.collectedCoins, usedCoins), (Vector2){10, 10}, 20, FONT_SPACING, (player.collectedCoins == usedCoins) ? YELLOW : WHITE);
+        DrawTextEx(font, FormatText("       Mario x %i", player.lifes), (Vector2){150, 10}, 20, FONT_SPACING, WHITE);
+        DrawTextEx(font, FormatText("Time: %03i", player.timeLeft), (Vector2){screenWidth - MeasureTextEx(font, FormatText("Time: %03i", player.timeLeft), 20, FONT_SPACING).x * 0.5f, 10}, 20, FONT_SPACING, WHITE);
         DrawTextEx(font, FormatText("World: %i", currentLevel), (Vector2){screenWidth / 2, 10}, 20, FONT_SPACING, WHITE);
 
     EndDrawing();

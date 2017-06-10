@@ -81,7 +81,7 @@ int main()
     menuSelected = 0;
     
     // Gameplay initialization
-    lifes = 3;
+    player.lifes = 3;
     
     // Update
     //--------------------------------------------------------------------------------------

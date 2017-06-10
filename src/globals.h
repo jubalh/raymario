@@ -4,6 +4,23 @@
 // Structs definitions
 typedef enum GameScreen { TITLE, LOADING, GAMEPLAY, END, WIN} GameScreen;
 
+typedef struct Player
+{
+	Transform transform;
+	int lifes;
+	bool isDead;
+	bool levelCompleted;
+	int collectedCoins;
+	int timeLeft;
+
+	float moveSpeed;
+	float jumpSpeed;
+	bool facingRight;
+	int frame;
+} Player;
+
+Player player;
+
 // Global variables
 int framesCounter;
 bool quitGame;
@@ -47,19 +64,6 @@ Vector2 lastParallax;
 Vector2 parallax;
 Vector2 cameraOffset;
 Vector2 extraOffset;
-
-// Player variables
-Transform player;
-int lifes;
-bool isDead;
-bool completed;
-int collectedCoins;
-int timeLeft;
-
-float moveSpeed;
-float jumpSpeed;
-bool facingRight;
-int playerFrame;
 
 // Physics variables
 Physics physicsSettings;

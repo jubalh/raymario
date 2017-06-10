@@ -8,7 +8,7 @@ void WinUpdate()
     {
         framesCounter = 0;
         currentLevel = 1;
-        lifes = 3;
+        player.lifes = 3;
 
         currentScreen = TITLE;
     }

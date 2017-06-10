@@ -23,17 +23,17 @@ void LoadLevel(int level)
     extraOffset = (Vector2){0, 50};
     
     // Player initialization
-    player = (Transform){(Vector2){screenWidth * 0.5f - 25, screenHeight * 0.68f}, 0.0f, (Vector2){30, 50}};      
-    AddCollider(MAX_BULLETS + 1, (Collider){true, RectangleCollider, (Rectangle){player.position.x, player.position.y, player.scale.x, player.scale.y}, player.scale.x/2 + player.scale.y/2});
+    player.transform = (Transform){(Vector2){screenWidth * 0.5f - 25, screenHeight * 0.68f}, 0.0f, (Vector2){30, 50}};      
+    AddCollider(MAX_BULLETS + 1, (Collider){true, RectangleCollider, (Rectangle){player.transform.position.x, player.transform.position.y, player.transform.scale.x, player.transform.scale.y}, player.transform.scale.x/2 + player.transform.scale.y/2});
     AddRigidbody(MAX_BULLETS + 1, (Rigidbody){true, 2.0f, (Vector2){0, 0}, (Vector2){0, 0}, false, false, true, 0.5f, 0.0f});
-    isDead = false;
-    moveSpeed = 5;
-    jumpSpeed = 20;
-    facingRight = true;
-    playerFrame = 0;
-    collectedCoins = 0;
-    timeLeft = 100;
-    completed = false;
+    player.isDead = false;
+    player.moveSpeed = 5;
+    player.jumpSpeed = 20;
+    player.facingRight = true;
+    player.frame = 0;
+    player.collectedCoins = 0;
+    player.timeLeft = 100;
+    player.levelCompleted = false;
     
     // Bullets initialization
     for (int i = 0; i < MAX_BULLETS; i++)
