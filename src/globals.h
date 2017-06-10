@@ -19,15 +19,16 @@ typedef struct Player
 	int frame;
 } Player;
 
+typedef struct Game
+{
+	int framesCounter;
+	bool quitGame;
+	bool cheatAllowed;
+} Game;
+
 Player player;
+Game game;
 
-// Global variables
-int framesCounter;
-bool quitGame;
-bool cheatAllowed;
-
-// Menu variables
-int menuSelected;
 int screenWidth;
 int screenHeight;
 

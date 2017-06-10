@@ -4,9 +4,9 @@
 
 void WinUpdate()
 {
-    if (framesCounter > 240 * 2)
+    if (game.framesCounter > 240 * 2)
     {
-        framesCounter = 0;
+        game.framesCounter = 0;
         currentLevel = 1;
         player.lifes = 3;
 

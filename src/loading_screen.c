@@ -7,7 +7,7 @@ char loadingMessage[10] = "Loading";
 
 void LoadingUpdate()
 {
-    if ((framesCounter % 10) == 0)
+    if ((game.framesCounter % 10) == 0)
     {
         lettersCount++;
         
@@ -50,10 +50,10 @@ void LoadingUpdate()
         }
     }
     
-    if (framesCounter > 120)
+    if (game.framesCounter > 120)
     {
         currentScreen = GAMEPLAY;
-        framesCounter = 0;
+        game.framesCounter = 0;
         
         if (!playingMusic)
         {

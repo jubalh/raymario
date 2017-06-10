@@ -106,7 +106,7 @@ void GameplayUpdate()
     // Check player - map bounds collision
     if (player.transform.position.y - player.transform.scale.y > screenHeight - 125)
     {
-        if (cheatAllowed)
+        if (game.cheatAllowed)
         {
             // respawn at the top
             player.transform.position.y = 0;
@@ -121,7 +121,7 @@ void GameplayUpdate()
                 
                 StopMusicStream(marioSong);
                 playingMusic = false;
-                framesCounter = 0;
+                game.framesCounter = 0;
                 
                 // Play die sound
                 PlaySound(playerDie);
@@ -130,7 +130,7 @@ void GameplayUpdate()
     }
     
     // Player visual frames logic
-    if ((framesCounter % (IsKeyDown(LEFT_CTRL) ? 1 : 2)) == 0)
+    if ((game.framesCounter % (IsKeyDown(LEFT_CTRL) ? 1 : 2)) == 0)
     {
         if (!GetRigidbody(MAX_BULLETS + 1).isGrounded)
         {
@@ -171,7 +171,7 @@ void GameplayUpdate()
     }
     
     // Enemies visual frames logic
-    if ((framesCounter % 5) == 0)
+    if ((game.framesCounter % 5) == 0)
     {
         for (int i = 0; i < MAX_ENEMIES; i++)
         {
@@ -187,7 +187,7 @@ void GameplayUpdate()
     }
     
     // Coins visual frames logic
-    if ((framesCounter % 5) == 0)
+    if ((game.framesCounter % 5) == 0)
     {
         coinFrame++;
         
@@ -202,7 +202,7 @@ void GameplayUpdate()
         if (!player.levelCompleted)
         {
             // Time challenge logic
-            if ((framesCounter % 60 ) == 0)
+            if ((game.framesCounter % 60 ) == 0)
             {
                 player.timeLeft--;
                 
@@ -220,7 +220,7 @@ void GameplayUpdate()
                     
                     StopMusicStream(marioSong);
                     playingMusic = false;
-                    framesCounter = 0;
+                    game.framesCounter = 0;
                     
                     // Play die sound
                     PlaySound(playerDie);
@@ -323,11 +323,11 @@ void GameplayUpdate()
             }
             else
             {
-                if (framesCounter > 240 * 1.5f)
+                if (game.framesCounter > 240 * 1.5f)
                 {
                     // Change screen
                     currentScreen = LOADING;
-                    framesCounter = 0;
+                    game.framesCounter = 0;
                     
                     currentLevel++;
                     if (currentLevel > mapsCount)
@@ -374,7 +374,7 @@ void GameplayUpdate()
                         
                         StopMusicStream(marioSong);
                         playingMusic = false;
-                        framesCounter = 0;
+                        game.framesCounter = 0;
                         
                         // Play die sound
                         PlaySound(playerDie);
@@ -436,7 +436,7 @@ void GameplayUpdate()
                 player.levelCompleted = true;
                 player.facingRight = true;
                 
-                framesCounter = 0;
+                game.framesCounter = 0;
                 StopMusicStream(marioSong);
                 playingMusic = false;
                 
@@ -447,14 +447,14 @@ void GameplayUpdate()
     }
     else
     {
-        if (framesCounter > 240)
+        if (game.framesCounter > 240)
         {
             player.lifes--;
             
             if (player.lifes <= 0)
             {
                 player.lifes = 0;
-                framesCounter = 0;
+                game.framesCounter = 0;
                 
                 // Play game over sound
                 PlaySound(gameOver);
@@ -463,7 +463,7 @@ void GameplayUpdate()
             }
             else
             {
-                framesCounter = 0;
+                game.framesCounter = 0;
                 
                 currentScreen = LOADING;
                 

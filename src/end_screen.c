@@ -4,9 +4,9 @@
 
 void EndUpdate()
 {
-	if (framesCounter > 240)
+	if (game.framesCounter > 240)
 	{
-		framesCounter = 0;
+		game.framesCounter = 0;
 		currentLevel = 1;
 		player.lifes = 3;
 		

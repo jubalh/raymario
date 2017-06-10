@@ -46,7 +46,7 @@ int main()
     //--------------------------------------------------------------------------------------
     screenWidth = 800;
     screenHeight = 450;
-    framesCounter = 0;
+    game.framesCounter = 0;
     
     srand(time(NULL));
     
@@ -65,20 +65,17 @@ int main()
     LoadPhysics();
     
     // Window initialiation
-    quitGame = false;
+    game.quitGame = false;
 
 #ifdef Debug
-    cheatAllowed = true;
+    game.cheatAllowed = true;
 #else
-    cheatAllowed = false;
+    game.cheatAllowed = false;
 #endif
     
     // Game initialization
     currentScreen = TITLE;
     currentLevel = 1;
-    
-    // Menu initialization
-    menuSelected = 0;
     
     // Gameplay initialization
     player.lifes = 3;
@@ -88,7 +85,7 @@ int main()
     SetTargetFPS(60);   // Set our game to run at 60 frames-per-second
     
     // Main game loop
-    while (!WindowShouldClose() && !quitGame)    // Detect window close button or ESC key
+    while (!WindowShouldClose() && !game.quitGame)    // Detect window close button or ESC key
     {
         UpdateDraw();
     }
@@ -152,7 +149,7 @@ void LoadPhysics()
 void UpdateDraw()
 {
     // Global frames counter update
-    framesCounter++;
+    game.framesCounter++;
     
     // Music stream logic
     if(playingMusic)

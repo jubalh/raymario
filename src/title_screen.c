@@ -19,6 +19,8 @@
 #include "libraries/defines.c"
 #include "level.h"
 
+static int menuSelected = 0;
+
 void TitleUpdate()
 {
     if (IsKeyPressed(KEY_DOWN) || IsKeyPressed('S'))
@@ -45,7 +47,7 @@ void TitleUpdate()
                 // Play select sound
                 PlaySound(selectSound);
                 
-                framesCounter = 0;
+                game.framesCounter = 0;
                 currentScreen = LOADING;
                 
                 LoadLevel(currentLevel);
@@ -53,9 +55,9 @@ void TitleUpdate()
             case 1:
             {
                 StopMusicStream(marioSong);
-                framesCounter = 0;
+                game.framesCounter = 0;
                 
-                quitGame = true;
+                game.quitGame = true;
             } break;
         }
     }
