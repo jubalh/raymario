@@ -12,11 +12,11 @@ raylib_dep = cc.find_library('raylib', required : false)
 source_c = [
   'src/main.c',
   'src/level.c',
-  'src/title_screen.c',
-  'src/loading_screen.c',
-  'src/gameplay_screen.c',
-  'src/win_screen.c',
-  'src/end_screen.c',
+  'src/screens/title_screen.c',
+  'src/screens/loading_screen.c',
+  'src/screens/gameplay_screen.c',
+  'src/screens/win_screen.c',
+  'src/screens/end_screen.c',
   'src/libraries/physac.c'
 ]
 

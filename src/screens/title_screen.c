@@ -14,10 +14,10 @@
 *
 ********************************************************************************************/
 #include <stdlib.h>
-#include "raylib.h"
-#include "globals.h"
-#include "libraries/defines.c"
-#include "level.h"
+#include <raylib.h>
+#include "../globals.h"
+#include "../libraries/defines.c"
+#include "../level.h"
 
 static int menuSelected = 0;
 

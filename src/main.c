@@ -28,11 +28,11 @@
 
 // Game
 #include "globals.h"
-#include "title_screen.h"
-#include "loading_screen.h"
-#include "end_screen.h"
-#include "win_screen.h"
-#include "gameplay_screen.h"
+#include "screens/title_screen.h"
+#include "screens/loading_screen.h"
+#include "screens/end_screen.h"
+#include "screens/win_screen.h"
+#include "screens/gameplay_screen.h"
 
 // Function declarations
 void LoadResources();

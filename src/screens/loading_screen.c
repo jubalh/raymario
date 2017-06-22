@@ -1,6 +1,6 @@
-#include "raylib.h"
-#include "globals.h"
-#include "libraries/defines.c"
+#include <raylib.h>
+#include "../globals.h"
+#include "../libraries/defines.c"
 
 int lettersCount = 0;
 char loadingMessage[10] = "Loading";

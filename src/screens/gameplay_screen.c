@@ -1,8 +1,8 @@
 #include "math.h"
-#include "raylib.h"
-#include "globals.h"
-#include "libraries/defines.c"
-#include "level.h"
+#include <raylib.h>
+#include "../globals.h"
+#include "../libraries/defines.c"
+#include "../level.h"
 
 static inline void DrawBackground(void)
 {
