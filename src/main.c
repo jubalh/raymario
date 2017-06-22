@@ -106,7 +106,7 @@ void LoadResources()
     font = LoadSpriteFont("resources/fonts/komika.png");
     
     // Sprites loading
-    background = LoadTexture("resources/images/background.jpg");
+    background = LoadTexture("resources/images/background.png");
     marioAtlas = LoadTexture("resources/images/mario_atlas.png");
     environmentAtlas = LoadTexture("resources/images/environment_atlas.png");
     castleTex = LoadTexture("resources/images/castle.png");
