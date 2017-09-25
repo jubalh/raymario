@@ -1,0 +1,63 @@
+# CheckCollisionRecs
+CheckCollisionRecs is actually in raymario  src/shapes.c
+
+# GetCollider
+Just an array with objects, probably now: GetPhysicsBody() in new Physac
+
+Collider.bounds is from type Rectangle
+
+# SetRigidbodyVelocity
+Maybe manipulate PhysicsBody.velocity directly
+
+# ApplyPhysics
+
+# Transform
+
+Probably is PhysicsBody
+
+```
+typedef struct Transform {
+    Vector2 position; -> position
+    float rotation;   -> orient
+    Vector2 scale; -> ???
+} Transform;
+```
+
+And since its a pointer we need to use something like this:
+```
+PhysicsBody floor = CreatePhysicsBodyRectangle((Vector2){ screenWidth/2, screenHeight }, 500, 100, 10);
+```
+
+# Physics
+used for settings
+
+```
+typedef struct Physics {
+    bool enabled;
+    bool debug;
+    Vector2 gravity;
+} Physics;
+```
+
+-> InitPhysics(void);
+-> SetPhysicsGravity()
+
+```
+45     physicsSettings = (Physics){true, false, (Vector2){0, -0.98f}};
+146     SetPhysics(physicsSettings);
+```
+
+Also:
+When 'p' was pressed i set the physics settings to debug:`
+```
+#ifdef Debug
+	// Debug mode switch button
+	if (IsKeyPressed('P'))
+	{
+		physicsSettings.debug = !physicsSettings.debug;
+		SetPhysics(physicsSettings);
+	}
+#endif
+```
+
+Now this is not needed but handled by `PHYSAC_DEBUG`.

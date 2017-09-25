@@ -50,7 +50,9 @@ int main()
     
     srand(time(NULL));
     
-#ifndef Debug
+#ifdef Debug
+	#define PHYSAC_DEBUG
+#else
     // Show raylib logo
     ShowLogo();
 #endif
@@ -142,8 +144,7 @@ void LoadPhysics()
     // Physics initialization
     InitPhysics();
     
-    physicsSettings = (Physics){true, false, (Vector2){0, -0.98f}};
-    SetPhysics(physicsSettings);
+	SetPhysicsGravity(0, -0.98f);
 }
 
 void UpdateDraw()

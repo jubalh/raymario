@@ -20,7 +20,7 @@ static inline void DrawClouds(void)
 	{
 		DrawTexturePro(environmentAtlas,
 				(Rectangle){CLOUD_OFFSETX, CLOUD_OFFSETY, CLOUD_WIDTH, CLOUD_HEIGHT},
-				(Rectangle){extraOffset.x / 4 + cameraOffset.x / 4 + clouds[i].position.x, clouds[i].position.y, clouds[i].scale.x, clouds[i].scale.y}, (Vector2){0, 0},
+				(Rectangle){extraOffset.x / 4 + cameraOffset.x / 4 + clouds[i]->position.x, clouds[i]->position.y, 1, 1}, (Vector2){0, 0},
 				0.0f,
 				WHITE);
 	}
@@ -30,7 +30,7 @@ static inline void DrawCastle(void)
 {
 	DrawTexturePro(castleTex,
 			(Rectangle){0, 0, 149, castleTex.height},
-			(Rectangle){extraOffset.x + cameraOffset.x + castle.position.x, extraOffset.y + cameraOffset.y + castle.position.y, castle.scale.x, castle.scale.y},
+			(Rectangle){extraOffset.x + cameraOffset.x + castle->position.x, extraOffset.y + cameraOffset.y + castle->position.y, 1, 1},
 			(Vector2){0, castleTex.height * 1.78f},
 			0.0f,
 			WHITE);
@@ -40,13 +40,13 @@ static inline void DrawFlag(void)
 {
 	DrawTexturePro(castleTex,
 			(Rectangle){FLAG_OFFSETX, FLAG_OFFSETY, FLAG_WIDTH, FLAG_HEIGHT},
-			(Rectangle){extraOffset.x + cameraOffset.x + flag.position.x, extraOffset.y + cameraOffset.y + flag.position.y, flag.scale.x, flag.scale.y}, (Vector2){0, FLAG_HEIGHT * 1.78f},
+			(Rectangle){extraOffset.x + cameraOffset.x + flag->position.x, extraOffset.y + cameraOffset.y + flag->position.y, 1, 1}, (Vector2){0, FLAG_HEIGHT * 1.78f},
 			0.0f,
 			WHITE);
 
 	DrawTexturePro(castleTex,
 			(Rectangle){183, 0, 16, 16},
-			(Rectangle){extraOffset.x + cameraOffset.x + flagTarget.position.x, flagTarget.position.y - flagTargetPos, flagTarget.scale.x, flagTarget.scale.y},
+			(Rectangle){extraOffset.x + cameraOffset.x + flagTarget->position.x, flagTarget->position.y - flagTargetPos, 1, 1},
 			(Vector2){0, 0},
 			0.0f,
 			WHITE);
@@ -54,6 +54,7 @@ static inline void DrawFlag(void)
 
 static inline void DrawFloor(void)
 {
+	/*
 	for (int i = 0; i < MAX_FLOOR; i++)
 	{
 		DrawTexturePro(marioAtlas,
@@ -63,6 +64,7 @@ static inline void DrawFloor(void)
 				0.0f,
 				WHITE);
 	}
+	*/
 }
 
 static inline void DrawPlayer(void)
@@ -70,7 +72,7 @@ static inline void DrawPlayer(void)
 	if (flagTargetPos > 0)
 	{
 		DrawTexturePro(marioAtlas, (Rectangle){MARIO_WIDTH * player.frame, 0, MARIO_WIDTH, MARIO_HEIGHT},
-				(Rectangle){extraOffset.x + cameraOffset.x + player.transform.position.x, extraOffset.y + cameraOffset.y + player.transform.position.y, player.transform.scale.x, player.transform.scale.y},
+				(Rectangle){extraOffset.x + cameraOffset.x + player.transform->position.x, extraOffset.y + cameraOffset.y + player.transform->position.y, 1, 1},
 				(Vector2){0.5f, 0.5f}, 
 				0.0f, 
 				WHITE);
@@ -81,6 +83,7 @@ static inline void DrawDecoration(void)
 {
 	for (int i = 0; i < MAX_DECORATION; i++)
 	{
+		/*
 		switch (decorationType[i])
 		{
 			case 0:
@@ -129,10 +132,12 @@ static inline void DrawDecoration(void)
 							WHITE);
 				} break;
 		}
+				*/
 	}
 }
 static inline void DrawEnemies(void)
 {
+	/*
 	// Draw enemies
 	for (int i = 0; i < MAX_ENEMIES; i++)
 	{
@@ -143,6 +148,7 @@ static inline void DrawEnemies(void)
 				0.0f,
 				WHITE);
 	}
+	*/
 }
 
 static inline void DrawBullets(void)
@@ -151,14 +157,16 @@ static inline void DrawBullets(void)
 	// Draw bullets
 	for (int i = 0; i < MAX_BULLETS; i++)
 	{
-		if (GetRigidbody(i).enabled)
+		if (GetPhysicsBody(i)->enabled)
 		{
+			/*
 			DrawTexturePro(marioAtlas,
 					(Rectangle){FIREBALL_OFFSETX, FIREBALL_OFFSETY, FIREBALL_WIDTH, FIREBALL_HEIGHT},
 					(Rectangle){extraOffset.x + cameraOffset.x + bullets[i].position.x, extraOffset.y + cameraOffset.y + bullets[i].position.y, bullets[i].scale.x, bullets[i].scale.y},
 					(Vector2){bullets[i].scale.x / 2, bullets[i].scale.y / 2},
 					bullets[i].rotation,
 					WHITE);
+					*/
 		}
 	}
 }
@@ -170,12 +178,14 @@ static inline void DrawCoins(void)
 	{
 		if (!coinCollected[i])
 		{
+			/*
 			DrawTexturePro(marioAtlas,
 					(Rectangle){COIN_OFFSETX + coinFrame * COIN_WIDTH, COIN_OFFSETY, COIN_WIDTH, COIN_HEIGHT},
 					(Rectangle){extraOffset.x + cameraOffset.x + coins[i].position.x, extraOffset.y + cameraOffset.y + coins[i].position.y, coins[i].scale.x, coins[i].scale.y},
 					(Vector2){0, 0},
 					0.0f,
 					WHITE); 
+					*/
 		}
 	}
 }
@@ -208,17 +218,18 @@ static inline void DrawGameplayUI(void)
 void GameplayUpdate()
 {
 	// Previous frame data storage
-	lastParallax = player.transform.position;
+	lastParallax = player.transform->position;
 
 	for (int i = 0; i < MAX_BULLETS; i++)
 	{
-		lastBullets[i] = bullets[i].position;
+		lastBullets[i] = bullets[i]->position;
 	}
 
+	/*
 	// Apply physics to bullets
 	for (int i = 0; i < MAX_BULLETS; i++)
 	{
-		ApplyPhysics(i, &bullets[i].position);
+		ApplyPhysics(i, bullets[i]->.position);
 	}
 
 	// Apply physics to player
@@ -227,7 +238,7 @@ void GameplayUpdate()
 	// Apply physics to enemies
 	for (int i = 0; i < MAX_ENEMIES; i++)
 	{
-		ApplyPhysics(MAX_BULLETS + MAX_FLOOR + i + 1, &enemies[i].position);
+		//ApplyPhysics(MAX_BULLETS + MAX_FLOOR + i + 1, &enemies[i].position);
 
 		// Check if enemy is enabled (not dead)
 		if (GetCollider(MAX_BULLETS + MAX_FLOOR + i + 1).enabled)
@@ -685,15 +696,7 @@ void GameplayUpdate()
 			}
 		}
 	}
-
-#ifdef Debug
-	// Debug mode switch button
-	if (IsKeyPressed('P'))
-	{
-		physicsSettings.debug = !physicsSettings.debug;
-		SetPhysics(physicsSettings);
-	}
-#endif
+	*/
 }
 
 void GameplayDraw()
@@ -702,45 +705,41 @@ void GameplayDraw()
 
 	ClearBackground((Color){94, 145, 255, 255});
 
-	if (!physicsSettings.debug)
-	{
-		DrawBackground();
-		DrawDecoration();
-		DrawClouds();
-		DrawCastle();
-		DrawFlag();
-		DrawFloor();
-		DrawPlayer();
-		DrawEnemies();
-		DrawBullets();
-		DrawCoins();
-	}
-	else
-	{
-		DrawFPS(10, 10);
+	DrawBackground();
+	DrawDecoration();
+	DrawClouds();
+	DrawCastle();
+	DrawFlag();
+	DrawFloor();
+	DrawPlayer();
+	DrawEnemies();
+	DrawBullets();
+	DrawCoins();
+#ifdef PHYSAC_DEBUG
+	DrawFPS(10, 10);
 
-		// Draw every collider in physics module storage
-		for (int i = 0; i < PHYSAC_MAX_ELEMENTS; i++)
+	// Draw every collider in physics module storage
+	for (int i = 0; i < PHYSAC_MAX_ELEMENTS; i++)
+	{
+		if (GetCollider(i).enabled)
 		{
-			if (GetCollider(i).enabled)
+			if (GetCollider(i).type == RectangleCollider)
 			{
-				if (GetCollider(i).type == RectangleCollider)
-				{
-					DrawRectangleLines(extraOffset.x + cameraOffset.x + GetCollider(i).bounds.x,
-							extraOffset.y + cameraOffset.y + GetCollider(i).bounds.y,
-							GetCollider(i).bounds.width, GetCollider(i).bounds.height,
-							GREEN);
-				}
-				else
-				{
-					DrawCircleLines(extraOffset.x + cameraOffset.x + GetCollider(i).bounds.x,
-							extraOffset.y + cameraOffset.y + GetCollider(i).bounds.y,
-							GetCollider(i).radius,
-							GREEN);
-				}
+				DrawRectangleLines(extraOffset.x + cameraOffset.x + GetCollider(i).bounds.x,
+						extraOffset.y + cameraOffset.y + GetCollider(i).bounds.y,
+						GetCollider(i).bounds.width, GetCollider(i).bounds.height,
+						GREEN);
+			}
+			else
+			{
+				DrawCircleLines(extraOffset.x + cameraOffset.x + GetCollider(i).bounds.x,
+						extraOffset.y + cameraOffset.y + GetCollider(i).bounds.y,
+						GetCollider(i).radius,
+						GREEN);
 			}
 		}
 	}
+#endif
 
 	DrawGameplayUI();
 

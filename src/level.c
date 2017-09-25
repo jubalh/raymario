@@ -23,9 +23,11 @@ void LoadLevel(int level)
     extraOffset = (Vector2){0, 50};
     
     // Player initialization
-    player.transform = (Transform){(Vector2){screenWidth * 0.5f - 25, screenHeight * 0.68f}, 0.0f, (Vector2){30, 50}};      
-    AddCollider(MAX_BULLETS + 1, (Collider){true, RectangleCollider, (Rectangle){player.transform.position.x, player.transform.position.y, player.transform.scale.x, player.transform.scale.y}, player.transform.scale.x/2 + player.transform.scale.y/2});
-    AddRigidbody(MAX_BULLETS + 1, (Rigidbody){true, 2.0f, (Vector2){0, 0}, (Vector2){0, 0}, false, false, true, 0.5f, 0.0f});
+    //player.transform = (Transform){(Vector2){screenWidth * 0.5f - 25, screenHeight * 0.68f}, 0.0f, (Vector2){30, 50}};      
+    //AddCollider(MAX_BULLETS + 1, (Collider){true, RectangleCollider, (Rectangle){player.transform.position.x, player.transform.position.y, player.transform.scale.x, player.transform.scale.y}, player.transform.scale.x/2 + player.transform.scale.y/2});
+    //AddRigidbody(MAX_BULLETS + 1, (Rigidbody){true, 2.0f, (Vector2){0, 0}, (Vector2){0, 0}, false, false, true, 0.5f, 0.0f});
+	player.transform =  CreatePhysicsBodyRectangle((Vector2){ screenWidth * 0.5f - 25, screenHeight * 0.68f }, 30, 50, 10);
+	
     player.isDead = false;
     player.moveSpeed = 5;
     player.jumpSpeed = 20;
@@ -38,14 +40,10 @@ void LoadLevel(int level)
     // Bullets initialization
     for (int i = 0; i < MAX_BULLETS; i++)
     {
-        bullets[i].position.x = 0.0f;
-        bullets[i].position.y = 0.0f;
-        bullets[i].rotation = 0.0f;
-        bullets[i].scale.x = 10;
-        bullets[i].scale.y = 10;
+		//TODO: density might be 0
+        bullets[i] = CreatePhysicsBodyCircle((Vector2){ 0.0f, 0.0f }, 10, 10);
         
-        AddCollider(i, (Collider){true, RectangleCollider, (Rectangle){bullets[i].position.x, bullets[i].position.y, bullets[i].scale.x, bullets[i].scale.x}, 0});
-        AddRigidbody(i, (Rigidbody){false, 1.0f, (Vector2){0, 0}, (Vector2){0, 0}, false, false, true, 0, 1.0f});
+        //AddRigidbody(i, (Rigidbody){false, 1.0f, (Vector2){0, 0}, (Vector2){0, 0}, false, false, true, 0, 1.0f});
     }
     
     // Map data initialization based on current level
@@ -60,8 +58,10 @@ void LoadLevel(int level)
         {
             if (pixels[y * LEVELIMAGE_WIDTH + x].r == 255 && pixels[y * LEVELIMAGE_WIDTH + x].g == 255 && pixels[y * LEVELIMAGE_WIDTH + x].b == 0)
             {
-                platforms[usedFloor] = (Transform){(Vector2){x * PIXEL_UNIT, y * PIXEL_UNIT}, 0.0f, (Vector2){30, 30}};
-                AddCollider(MAX_BULLETS + 2 + usedFloor, (Collider){true, RectangleCollider, (Rectangle){platforms[usedFloor].position.x, platforms[usedFloor].position.y, platforms[usedFloor].scale.x, platforms[usedFloor].scale.y}, 0});
+                //platforms[usedFloor] = (Transform){(Vector2){x * PIXEL_UNIT, y * PIXEL_UNIT}, 0.0f, (Vector2){30, 30}};
+				// TODO: density might be 0
+                platforms[usedFloor] =  CreatePhysicsBodyRectangle((Vector2){ x * PIXEL_UNIT, y * PIXEL_UNIT }, 30, 30, 10);
+                //AddCollider(MAX_BULLETS + 2 + usedFloor, (Collider){true, RectangleCollider, (Rectangle){platforms[usedFloor].position.x, platforms[usedFloor].position.y, platforms[usedFloor].scale.x, platforms[usedFloor].scale.y}, 0});
                 usedFloor++;
             }
         }
@@ -79,9 +79,10 @@ void LoadLevel(int level)
         {
             if (pixels[y * LEVELIMAGE_WIDTH + x].r == 255 && pixels[y * LEVELIMAGE_WIDTH + x].g == 0 && pixels[y * LEVELIMAGE_WIDTH + x].b == 0)
             {
-                enemies[usedEnemies] = (Transform){(Vector2){x * PIXEL_UNIT, y * PIXEL_UNIT}, 0.0f, (Vector2){30, 30}};
-                AddCollider(MAX_BULLETS + 1 + MAX_FLOOR + usedEnemies, (Collider){true, RectangleCollider, (Rectangle){enemies[usedEnemies].position.x, enemies[usedEnemies].position.y, enemies[usedEnemies].scale.x, enemies[usedEnemies].scale.y}, 0});
-                AddRigidbody(MAX_BULLETS + 1 + MAX_FLOOR + usedEnemies, (Rigidbody){true, 1.0f, (Vector2){0, 0}, false, false, true, 0.2f, 0.5f});
+                //enemies[usedEnemies] = (Transform){(Vector2){x * PIXEL_UNIT, y * PIXEL_UNIT}, 0.0f, (Vector2){30, 30}};
+                enemies[usedEnemies] = CreatePhysicsBodyRectangle((Vector2){ x * PIXEL_UNIT, y * PIXEL_UNIT }, 30, 30, 10); 
+                //AddCollider(MAX_BULLETS + 1 + MAX_FLOOR + usedEnemies, (Collider){true, RectangleCollider, (Rectangle){enemies[usedEnemies].position.x, enemies[usedEnemies].position.y, enemies[usedEnemies].scale.x, enemies[usedEnemies].scale.y}, 0});
+                //AddRigidbody(MAX_BULLETS + 1 + MAX_FLOOR + usedEnemies, (Rigidbody){true, 1.0f, (Vector2){0, 0}, false, false, true, 0.2f, 0.5f});
                 usedEnemies++;
             }
         }
@@ -97,7 +98,8 @@ void LoadLevel(int level)
         {
             if (pixels[y * LEVELIMAGE_WIDTH + x].r == 0 && pixels[y * LEVELIMAGE_WIDTH + x].g == 255 && pixels[y * LEVELIMAGE_WIDTH + x].b == 0)
             {
-                coins[usedCoins] = (Transform){(Vector2){x * PIXEL_UNIT, y * PIXEL_UNIT}, 0.0f, (Vector2){20, 30}};
+                //coins[usedCoins] = (Transform){(Vector2){x * PIXEL_UNIT, y * PIXEL_UNIT}, 0.0f, (Vector2){20, 30}};
+                coins[usedCoins] = CreatePhysicsBodyCircle((Vector2){ x * PIXEL_UNIT, y * PIXEL_UNIT }, 30, 10);
                 coinCollected[usedCoins] = false;
                 usedCoins++;
             }
@@ -122,23 +124,28 @@ void LoadLevel(int level)
                 {
                     case 0:
                     {
-                        decoration[usedDecoration] = (Transform){(Vector2){x * PIXEL_UNIT * 0.99f, y * PIXEL_UNIT * 1.15f}, 0.0f, (Vector2){64 * 2, 19 * 2}};
+                        //decoration[usedDecoration] = (Transform){(Vector2){x * PIXEL_UNIT * 0.99f, y * PIXEL_UNIT * 1.15f}, 0.0f, (Vector2){64 * 2, 19 * 2}};
+                        decoration[usedDecoration] = CreatePhysicsBodyRectangle((Vector2){ x * PIXEL_UNIT * 0.99f, y * PIXEL_UNIT * 1.15f}, 62 * 2, 19 * 2, 10);
                     } break;
                     case 1:
                     {
-                        decoration[usedDecoration] = (Transform){(Vector2){x * PIXEL_UNIT * 0.99f, y * PIXEL_UNIT * 1.15f}, 0.0f, (Vector2){48 * 2, 19 * 2}};
+                        //decoration[usedDecoration] = (Transform){(Vector2){x * PIXEL_UNIT * 0.99f, y * PIXEL_UNIT * 1.15f}, 0.0f, (Vector2){48 * 2, 19 * 2}};
+                        decoration[usedDecoration] = CreatePhysicsBodyRectangle((Vector2){ x * PIXEL_UNIT * 0.99f, y * PIXEL_UNIT * 1.15f}, 48 * 2, 19 * 2, 10);
                     } break;
                     case 2:
                     {
-                        decoration[usedDecoration] = (Transform){(Vector2){x * PIXEL_UNIT * 0.99f, y * PIXEL_UNIT * 1.15f}, 0.0f, (Vector2){119 * 2, 19 * 2}};
+                        //decoration[usedDecoration] = (Transform){(Vector2){x * PIXEL_UNIT * 0.99f, y * PIXEL_UNIT * 1.15f}, 0.0f, (Vector2){119 * 2, 19 * 2}};
+                        decoration[usedDecoration] = CreatePhysicsBodyRectangle((Vector2){ x * PIXEL_UNIT * 0.99f, y * PIXEL_UNIT * 1.15f}, 119 * 2, 19 * 2, 10);
                     } break;
                     case 3:
                     {
-                        decoration[usedDecoration] = (Transform){(Vector2){x * PIXEL_UNIT * 0.99f, y * PIXEL_UNIT * 1.0f}, 0.0f, (Vector2){16 * 2, 46 * 2}};
+                        //decoration[usedDecoration] = (Transform){(Vector2){x * PIXEL_UNIT * 0.99f, y * PIXEL_UNIT * 1.0f}, 0.0f, (Vector2){16 * 2, 46 * 2}};
+                        decoration[usedDecoration] = CreatePhysicsBodyRectangle((Vector2){ x * PIXEL_UNIT * 0.99f, y * PIXEL_UNIT * 1.0f}, 16 * 2, 46 * 2, 10);
                     } break;
                     case 4:
                     {
-                        decoration[usedDecoration] = (Transform){(Vector2){x * PIXEL_UNIT * 0.99f, y * PIXEL_UNIT * 1.0f}, 0.0f, (Vector2){64 * 2, 14 * 2}};
+                        //decoration[usedDecoration] = (Transform){(Vector2){x * PIXEL_UNIT * 0.99f, y * PIXEL_UNIT * 1.0f}, 0.0f, (Vector2){64 * 2, 14 * 2}};
+                        decoration[usedDecoration] = CreatePhysicsBodyRectangle((Vector2){ x * PIXEL_UNIT * 0.99f, y * PIXEL_UNIT * 1.0f}, 64 * 2, 14 * 2, 10);
                     } break;
                 }
                 
@@ -156,7 +163,8 @@ void LoadLevel(int level)
         {
             if (pixels[y * LEVELIMAGE_WIDTH + x].r == 0 && pixels[y * LEVELIMAGE_WIDTH + x].g == 0 && pixels[y * LEVELIMAGE_WIDTH + x].b == 0)
             {
-                clouds[usedClouds] = (Transform){(Vector2){x * PIXEL_UNIT, y * PIXEL_UNIT}, 0.0f, (Vector2){CLOUD_WIDTH * 1.5f, CLOUD_HEIGHT * 1.5f}};
+                //clouds[usedClouds] = (Transform){(Vector2){x * PIXEL_UNIT, y * PIXEL_UNIT}, 0.0f, (Vector2){CLOUD_WIDTH * 1.5f, CLOUD_HEIGHT * 1.5f}};
+                clouds[usedClouds] = CreatePhysicsBodyRectangle((Vector2){ x * PIXEL_UNIT, y * PIXEL_UNIT}, CLOUD_WIDTH * 1.5f, CLOUD_HEIGHT * 1.5f, 10);
                 usedClouds++;
             }
         }
@@ -169,7 +177,8 @@ void LoadLevel(int level)
         {
             if (pixels[y * LEVELIMAGE_WIDTH + x].r == 128 && pixels[y * LEVELIMAGE_WIDTH + x].g == 0 && pixels[y * LEVELIMAGE_WIDTH + x].b == 0)
             {
-                castle = (Transform){(Vector2){x * PIXEL_UNIT, y * PIXEL_UNIT}, 0.0f, (Vector2){castleTex.width * 1.75f, castleTex.height * 2}};
+                //castle = (Transform){(Vector2){x * PIXEL_UNIT, y * PIXEL_UNIT}, 0.0f, (Vector2){castleTex.width * 1.75f, castleTex.height * 2}};
+                castle = CreatePhysicsBodyRectangle((Vector2){ x * PIXEL_UNIT, y * PIXEL_UNIT}, castleTex.width * 1.75f, castleTex.height * 2, 10);
             }
         }
     }
@@ -181,13 +190,15 @@ void LoadLevel(int level)
         {
             if (pixels[y * LEVELIMAGE_WIDTH + x].r == 0 && pixels[y * LEVELIMAGE_WIDTH + x].g == 128 && pixels[y * LEVELIMAGE_WIDTH + x].b == 0)
             {
-                flag = (Transform){(Vector2){x * PIXEL_UNIT, y * PIXEL_UNIT}, 0.0f, (Vector2){FLAG_WIDTH * 2, FLAG_HEIGHT * 2}};
-                AddCollider(MAX_BULLETS + 1 + MAX_FLOOR + MAX_ENEMIES, (Collider){true, RectangleCollider, (Rectangle){flag.position.x, flag.position.y - 230, flag.scale.x, flag.scale.y + 230}, 0});
+                //flag = (Transform){(Vector2){x * PIXEL_UNIT, y * PIXEL_UNIT}, 0.0f, (Vector2){FLAG_WIDTH * 2, FLAG_HEIGHT * 2}};
+                //AddCollider(MAX_BULLETS + 1 + MAX_FLOOR + MAX_ENEMIES, (Collider){true, RectangleCollider, (Rectangle){flag.position.x, flag.position.y - 230, flag.scale.x, flag.scale.y + 230}, 0});
+                flag = CreatePhysicsBodyRectangle((Vector2){ x * PIXEL_UNIT, y * PIXEL_UNIT}, FLAG_WIDTH * 2, FLAG_HEIGHT * 2, 10);
             }
         }
     }
     
-    flagTarget = (Transform){(Vector2){flag.position.x - 16, flag.position.y}, 0.0f, (Vector2){32, 32}};
+    //flagTarget = (Transform){(Vector2){flag.position.x - 16, flag.position.y}, 0.0f, (Vector2){32, 32}};
+    flagTarget = CreatePhysicsBodyRectangle((Vector2){flag->position.x - 16, flag->position.y }, 32, 32, 10);
     flagTargetPos = 230;
 
     free(pixels);

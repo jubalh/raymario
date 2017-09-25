@@ -26,7 +26,8 @@ typedef enum Sounds {
 
 typedef struct Player
 {
-	Transform transform;
+	//TODO Transform transform;
+	PhysicsBody transform;
 	int lifes;
 	bool isDead;
 	bool levelCompleted;
@@ -76,20 +77,17 @@ Vector2 parallax;
 Vector2 cameraOffset;
 Vector2 extraOffset;
 
-// Physics variables
-Physics physicsSettings;
-
 // Bullets variables
-Transform bullets[MAX_BULLETS];
+PhysicsBody bullets[MAX_BULLETS];
 Vector2 lastBullets[MAX_BULLETS];
 int samePosition[MAX_BULLETS];
 
 // Level variables
-Transform platforms[MAX_FLOOR];
+PhysicsBody platforms[MAX_FLOOR];
 int usedFloor;
 
 // Enemies variables
-Transform enemies[MAX_ENEMIES];
+PhysicsBody enemies[MAX_ENEMIES];
 int usedEnemies;
 int enemiesFrame[MAX_ENEMIES];
 float enemyAngle;
@@ -97,24 +95,24 @@ int rangeDistance;
 int enemyPadding;
 
 // Coins variables
-Transform coins[MAX_COINS];
+PhysicsBody coins[MAX_COINS];
 bool coinCollected[MAX_COINS];
 int usedCoins;
 int coinFrame;
 
 // Decoration variables
-Transform decoration[MAX_DECORATION];
+PhysicsBody decoration[MAX_DECORATION];
 int usedDecoration;
 int decorationType[MAX_DECORATION];
 
 // Clouds variables
-Transform clouds[MAX_CLOUDS];
+PhysicsBody clouds[MAX_CLOUDS];
 int usedClouds;
 
 // Castle variables
-Transform castle;
+PhysicsBody castle;
 
 // Flag variables
-Transform flag;
-Transform flagTarget;
+PhysicsBody flag;
+PhysicsBody flagTarget;
 int flagTargetPos;
