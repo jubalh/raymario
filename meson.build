@@ -10,7 +10,6 @@ m_dep = cc.find_library('m', required : false)
 raylib_dep = cc.find_library('raylib', required : false)
 
 source_c = [
-  'src/libraries/physac.h',
   'src/main.c',
   'src/level.c',
   'src/screens/title_screen.c',
@@ -20,7 +19,10 @@ source_c = [
   'src/screens/end_screen.c'
 ]
 
+libinc = include_directories('src/libraries')
+
 raymario = executable('raymario',
   source_c,
+  include_directories : libinc,
   dependencies : [ raylib_dep, glfw_dep, gl_dep, openal_dep, m_dep ],
-  install : true)
+  install : true )
