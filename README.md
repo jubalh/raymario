@@ -22,4 +22,4 @@ raymario
 ```
 
 ## Screenshot
-![screenshot](http://i.imgur.com/77Bjp9D.png)
+![screenshot](http://i.imgur.com/fxThjXN.png)
