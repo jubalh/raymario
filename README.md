@@ -17,7 +17,8 @@ It was originally created by [Víctor Fisac](https://github.com/victorfisac).
 meson builddir
 cd builddir
 ninja
-./raymario
+sudo ninja install
+raymario
 ```
 
 ## Screenshot

@@ -4,6 +4,9 @@
 #include "libraries/defines.c"
 #include "libraries/physac.h"
 
+// Config header build by meson. Contains the resources path.
+#include "config.h"
+
 // Levels are saved as image files (png)
 // RGB       - Color  - Representation
 // 255,255,0 - Yellow - Floor
@@ -49,7 +52,7 @@ void LoadLevel(int level)
     }
     
     // Map data initialization based on current level
-    Color *pixels = GetImageData(LoadImage(FormatText("resources/maps/level_map_%02i.png", level)));
+    Color *pixels = GetImageData(LoadImage(FormatText(RESOURCE_DIR "/maps/level_map_%02i.png", level)));
     
     // Level initialization
     usedFloor = 0;

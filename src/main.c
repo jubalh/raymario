@@ -34,6 +34,9 @@
 #include "screens/win_screen.h"
 #include "screens/gameplay_screen.h"
 
+// Config header build by meson. Contains the resources path.
+#include "config.h"
+
 // Function declarations
 void LoadResources();
 void UnloadResources();
@@ -103,33 +106,33 @@ int main()
 void LoadResources()
 {
     // SpriteFonts loading
-    font = LoadSpriteFont("resources/fonts/komika.png");
+    font = LoadSpriteFont(RESOURCE_DIR "/fonts/komika.png");
     
     // Sprites loading
-    background = LoadTexture("resources/images/background.png");
-    marioAtlas = LoadTexture("resources/images/mario_atlas.png");
-    environmentAtlas = LoadTexture("resources/images/environment_atlas.png");
-    castleTex = LoadTexture("resources/images/castle.png");
+    background = LoadTexture(RESOURCE_DIR "/images/background.png");
+    marioAtlas = LoadTexture(RESOURCE_DIR "/images/mario_atlas.png");
+    environmentAtlas = LoadTexture(RESOURCE_DIR "/images/environment_atlas.png");
+    castleTex = LoadTexture(RESOURCE_DIR "/images/castle.png");
     
     // Sounds Loading
-    sounds[S_SELECT] = LoadSound("resources/sounds/select.wav");
-    sounds[S_JUMP] = LoadSound("resources/sounds/player_jump.wav");
-    sounds[S_KICK] = LoadSound("resources/sounds/player_kick.wav");
-    sounds[S_FIRE] = LoadSound("resources/sounds/player_fire.wav");
-    sounds[S_DIE] = LoadSound("resources/sounds/player_die.wav");
-    sounds[S_COIN] = LoadSound("resources/sounds/coin.wav");
-    sounds[S_TIMELEFT] = LoadSound("resources/sounds/left_time.wav");
-    sounds[S_GAMEOVER] = LoadSound("resources/sounds/gameover.wav");
-    sounds[S_COMPLETE_LEVEL] = LoadSound("resources/sounds/win.wav");
-    sounds[S_WON] = LoadSound("resources/sounds/wingame.wav");
-    marioSong = LoadMusicStream("resources/music/mario_music.ogg");
+    sounds[S_SELECT] = LoadSound(RESOURCE_DIR "/sounds/select.wav");
+    sounds[S_JUMP] = LoadSound(RESOURCE_DIR "/sounds/player_jump.wav");
+    sounds[S_KICK] = LoadSound(RESOURCE_DIR "/sounds/player_kick.wav");
+    sounds[S_FIRE] = LoadSound(RESOURCE_DIR "/sounds/player_fire.wav");
+    sounds[S_DIE] = LoadSound(RESOURCE_DIR "/sounds/player_die.wav");
+    sounds[S_COIN] = LoadSound(RESOURCE_DIR "/sounds/coin.wav");
+    sounds[S_TIMELEFT] = LoadSound(RESOURCE_DIR "/sounds/left_time.wav");
+    sounds[S_GAMEOVER] = LoadSound(RESOURCE_DIR "/sounds/gameover.wav");
+    sounds[S_COMPLETE_LEVEL] = LoadSound(RESOURCE_DIR "/sounds/win.wav");
+    sounds[S_WON] = LoadSound(RESOURCE_DIR "/sounds/wingame.wav");
+    marioSong = LoadMusicStream(RESOURCE_DIR "/music/mario_music.ogg");
     
     // Maps initialization
     FILE *imageFile;
     
     for (int i = 0; i < MAX_LEVELS; i++)
     {
-        imageFile = fopen(FormatText("resources/maps/level_map_0%i.png", i + 1), "rb");
+        imageFile = fopen(FormatText(RESOURCE_DIR "/maps/level_map_0%i.png", i + 1), "rb");
         
         if (imageFile == NULL) break;
         
