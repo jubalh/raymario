@@ -58,7 +58,7 @@ int main()
     ShowLogo();
 #endif
     
-    InitWindow(screenWidth, screenHeight, "raymario v1.0");
+    InitWindow(screenWidth, screenHeight, "raymario v" VERSION);
     InitAudioDevice();
     
     // Load all resources

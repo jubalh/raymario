@@ -13,8 +13,10 @@ raylib_dep = cc.find_library('raylib', required : false)
 prefix = get_option('prefix')
 
 conf = configuration_data()
+conf.set('VERSION', '"' + meson.project_version() + '"',
+         description : 'Version of raymario')
 conf.set('PREFIX', prefix,
-         description : 'Installation prefix.')
+         description : 'Installation prefix')
 conf.set('RESOURCE_DIR', '"' + prefix + '/share/raymario/resources"',
          description : 'Resource directory contains fonts, images, sounds, maps. Resource files will be installed in $PREFIX/share/raymario/resources')
 
