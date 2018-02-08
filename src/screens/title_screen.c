@@ -88,7 +88,7 @@ void TitleDraw()
         DrawTexturePro(marioAtlas, (Rectangle){0, 0, MARIO_WIDTH, MARIO_HEIGHT}, (Rectangle){screenWidth / 2 - MARIO_WIDTH / 2 - MARIO_WIDTH, screenHeight * 0.7f, MARIO_WIDTH * 2, MARIO_HEIGHT * 2}, (Vector2){0.5f, 0.5f}, 0.0f, WHITE);
     
         // Draw help message
-        DrawTextEx(font, "-SPACE- select    -W- up  -S- down", (Vector2){screenWidth - MeasureTextEx(font, "-SPACE- select    -W- up  -S- down", 15, FONT_SPACING).x * 0.35f - 5, screenHeight * 0.80f}, 15, FONT_SPACING, WHITE);
+        DrawTextEx(font, "-SPACE- select    -W- up  -S- down", (Vector2){screenWidth - MeasureTextEx(font, "-SPACE- select    -W- up  -S- down", 15, FONT_SPACING).x, screenHeight * 0.80f}, 15, FONT_SPACING, WHITE);
     
         // Draw credits
         DrawText("Created by: Victor Fisac [www.victorfisac.com]", 5, screenHeight * 0.81f, 10, WHITE);

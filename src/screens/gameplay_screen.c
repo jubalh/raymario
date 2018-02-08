@@ -197,8 +197,7 @@ static inline void DrawGameplayUI(void)
 				WHITE);
 	DrawTextEx(font, FormatText("Time: %03i",
 				player.timeLeft),
-			    (Vector2){screenWidth - MeasureTextEx(font, FormatText("Time: %03i", player.timeLeft), 20, FONT_SPACING).x * 0.5f,
-				10},
+			    (Vector2){screenWidth - MeasureTextEx(font, FormatText("Time: %03i", player.timeLeft), 20, FONT_SPACING).x, 10},
 				20,
 				FONT_SPACING,
 				WHITE);
