@@ -9,8 +9,8 @@
 *   raymario was started by
 *   Victor Fisac (www.victorfisac.com)
 *
-*   Copyright (c) 2015 Victor Fisac (www.victorfisac.com)
-*   Copyright (c) 2017 Michael Vetter (jubalh@openmailbox.org)
+*   Copyright (c) 2015        Victor Fisac (www.victorfisac.com)
+*   Copyright (c) 2017 - 2018 Michael Vetter (jubalh@iodoru.org)
 *
 ********************************************************************************************/
 #include <stdlib.h>
